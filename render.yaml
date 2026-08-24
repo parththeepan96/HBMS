@@ -1,0 +1,109 @@
+services:
+  - type: web
+    name: hbms-user-service
+    runtime: docker
+    dockerfilePath: ./UserService/Dockerfile
+    dockerContext: ./UserService
+    plan: free
+    envVars:
+      - key: MongoDbSettings__ConnectionString
+        sync: false
+      - key: JwtSettings__SecretKey
+        sync: false
+
+  - type: web
+    name: hbms-hotel-service
+    runtime: docker
+    dockerfilePath: ./HotelService/Dockerfile
+    dockerContext: ./HotelService
+    plan: free
+    envVars:
+      - key: MongoDbSettings__ConnectionString
+        sync: false
+
+  - type: web
+    name: hbms-notification-service
+    runtime: docker
+    dockerfilePath: ./NotificationService/Dockerfile
+    dockerContext: ./NotificationService
+    plan: free
+    envVars:
+      - key: MongoDbSettings__ConnectionString
+        sync: false
+      - key: EmailSettings__Password
+        sync: false
+
+  - type: web
+    name: hbms-booking-service
+    runtime: docker
+    dockerfilePath: ./BookingService/Dockerfile
+    dockerContext: ./BookingService
+    plan: free
+    envVars:
+      - key: MONGODB_URI_BOOKING
+        sync: false
+      - key: SERVICES_USER_BASE_URL
+        value: https://hbms-user-service.onrender.com
+      - key: SERVICES_HOTEL_BASE_URL
+        value: https://hbms-hotel-service.onrender.com
+      - key: SERVICES_PAYMENT_BASE_URL
+        value: https://hbms-payment-service.onrender.com
+      - key: SERVICES_NOTIFICATION_BASE_URL
+        value: https://hbms-notification-service.onrender.com
+
+  - type: web
+    name: hbms-payment-service
+    runtime: docker
+    dockerfilePath: ./PaymentService/Dockerfile
+    dockerContext: ./PaymentService
+    plan: free
+    envVars:
+      - key: MONGODB_URI_PAYMENT
+        sync: false
+
+  - type: web
+    name: hbms-api-gateway
+    runtime: docker
+    dockerfilePath: ./ApiGateway/Dockerfile
+    dockerContext: ./ApiGateway
+    plan: free
+    envVars:
+      - key: USER_SERVICE_SCHEME
+        value: https
+      - key: USER_SERVICE_HOST
+        value: hbms-user-service.onrender.com
+      - key: USER_SERVICE_PORT
+        value: "443"
+      - key: HOTEL_SERVICE_SCHEME
+        value: https
+      - key: HOTEL_SERVICE_HOST
+        value: hbms-hotel-service.onrender.com
+      - key: HOTEL_SERVICE_PORT
+        value: "443"
+      - key: BOOKING_SERVICE_SCHEME
+        value: https
+      - key: BOOKING_SERVICE_HOST
+        value: hbms-booking-service.onrender.com
+      - key: BOOKING_SERVICE_PORT
+        value: "443"
+      - key: PAYMENT_SERVICE_SCHEME
+        value: https
+      - key: PAYMENT_SERVICE_HOST
+        value: hbms-payment-service.onrender.com
+      - key: PAYMENT_SERVICE_PORT
+        value: "443"
+      - key: NOTIFICATION_SERVICE_SCHEME
+        value: https
+      - key: NOTIFICATION_SERVICE_HOST
+        value: hbms-notification-service.onrender.com
+      - key: NOTIFICATION_SERVICE_PORT
+        value: "443"
+      - key: GATEWAY_BASE_URL
+        value: https://hbms-api-gateway.onrender.com
+
+  - type: web
+    name: hbms-frontend
+    runtime: static
+    staticPublishPath: ./Frontend
+    plan: free
+    buildCommand: ""

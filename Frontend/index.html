@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HBMS</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark">HBMS</span>
+      
+    </div>
+    <nav class="tabs" id="mainNav">
+      <button data-view="search" class="active">Search</button>
+      <button data-view="bookings">My Bookings</button>
+      <button data-view="account">Account</button>
+    </nav>
+    <div class="session-info" id="sessionInfo">
+      <span id="sessionLabel">Not signed in</span>
+      <button id="sessionAction">Sign In</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ AUTH VIEW ============ -->
+    <section class="view" id="view-auth">
+      <h1 class="view-title">Sign in or create an account</h1>
+      <div id="authAlert"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <h3 style="margin-top:0;font-weight:800;color:var(--blue-900);">Sign In</h3>
+          <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" required placeholder="you@example.com" />
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" required placeholder="••••••••" />
+            <button class="btn" type="submit">Sign In</button>
+          </form>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top:0;font-weight:800;color:var(--blue-900);">Register</h3>
+          <form id="registerForm">
+            <label for="regName">Full Name</label>
+            <input id="regName" type="text" required placeholder="Jane Doe" />
+            <label for="regEmail">Email</label>
+            <input id="regEmail" type="email" required placeholder="you@example.com" />
+            <label for="regPhone">Phone</label>
+            <input id="regPhone" type="text" required placeholder="+44 7000 000000" />
+            <label for="regPassword">Password</label>
+            <input id="regPassword" type="password" required placeholder="••••••••" />
+            <button class="btn gold" type="submit">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SEARCH VIEW ============ -->
+    <section class="view active" id="view-search">
+      <div class="hero-banner">
+        <h1 class="view-title">Search Hotels</h1>
+        <p class="view-sub">Search hotels by location or name</p>
+      </div>
+
+      <div class="panel">
+        <form id="searchForm" style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;">
+            <label for="searchLocation">Location</label>
+            <input id="searchLocation" type="text" placeholder="e.g. Birmingham" />
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <label for="searchName">Hotel name</label>
+            <input id="searchName" type="text" placeholder="e.g. Grand Palace" />
+          </div>
+          <button class="btn gold" type="submit" style="margin-top:0;">Search</button>
+        </form>
+      </div>
+
+      <div id="hotelResults"></div>
+    </section>
+
+    <!-- ============ BOOK VIEW (details: dates, guests, requests) ============ -->
+    <section class="view" id="view-book">
+      <span class="eyebrow">Booking Service · BR3</span>
+      <h1 class="view-title">Confirm your booking</h1>
+      <p class="view-sub" id="bookHotelSub">Select your dates, guests and any special requests.</p>
+      <div id="bookAlert"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <form id="bookForm">
+            <label for="checkIn">Check-in date</label>
+            <input id="checkIn" type="date" required />
+            <label for="checkOut">Check-out date</label>
+            <input id="checkOut" type="date" required />
+            <div class="card-row">
+              <div>
+                <label for="guestsAdults">Adults</label>
+                <input id="guestsAdults" type="number" min="1" value="2" required />
+              </div>
+              <div>
+                <label for="guestsChildren">Children</label>
+                <input id="guestsChildren" type="number" min="0" value="0" />
+              </div>
+            </div>
+            <label for="specialRequests">Any requests? (optional)</label>
+            <textarea id="specialRequests" rows="4" placeholder="e.g. Late check-in, high floor, extra pillows…" style="width:100%;padding:11px 12px;border:1px solid #c4c9d1;border-radius:var(--radius);font-family:var(--sans);font-size:14px;color:var(--ink);resize:vertical;"></textarea>
+            <button class="btn gold" type="submit">Continue to Payment</button>
+          </form>
+        </div>
+        <div class="panel" id="bookSummaryPanel">
+          <h3 style="margin-top:0;font-weight:800;color:var(--blue-900);">Room summary</h3>
+          <div id="bookSummary"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAYMENT VIEW (card only) ============ -->
+    <section class="view" id="view-payment">
+      <h1 class="view-title">Payment</h1>
+      <p class="view-sub">Enter test card details to complete your booking.</p>
+      <div id="paymentAlert"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="test-payment-note">
+            <span class="icon">i</span>
+            <span>This is a <strong>test payment</strong> environment. No real card is charged — any card number works.</span>
+          </div>
+          <form id="paymentForm">
+            <label for="cardNumber">Card number (test)</label>
+            <input id="cardNumber" type="text" required placeholder="4242 4242 4242 4242" />
+            <div class="card-row">
+              <div>
+                <label for="cardExpiry">Expiry</label>
+                <input id="cardExpiry" type="text" placeholder="MM/YY" />
+              </div>
+              <div>
+                <label for="cardCvc">CVC</label>
+                <input id="cardCvc" type="text" placeholder="123" />
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <button class="btn outline" type="button" id="paymentBackBtn" style="margin-top:22px;">Back</button>
+              <button class="btn gold" type="submit">Pay &amp; Confirm Booking</button>
+            </div>
+          </form>
+        </div>
+        <div class="panel" id="paymentSummaryPanel">
+          <h3 style="margin-top:0;font-weight:800;color:var(--blue-900);">Order summary</h3>
+          <div id="paymentSummary"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOOKINGS VIEW ============ -->
+    <section class="view" id="view-bookings">
+      <h1 class="view-title">My bookings</h1>
+      <div id="bookingsAlert"></div>
+      <div id="bookingsList"></div>
+    </section>
+
+    <!-- ============ ACCOUNT VIEW ============ -->
+    <section class="view" id="view-account">
+      <h1 class="view-title">Account</h1>
+      <div class="grid-2">
+        <div class="panel">
+          <p id="accountDetails" style="font-size:14.5px;line-height:1.9;"></p>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top:0;font-weight:800;color:var(--blue-900);">Update details</h3>
+          <div id="accountAlert"></div>
+          <form id="accountForm">
+            <label for="accountName">Name</label>
+            <input id="accountName" type="text" required />
+            <label for="accountPhone">Phone number</label>
+            <input id="accountPhone" type="tel" />
+            <button class="btn gold" type="submit">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="hbms-footer">
+    HBMS · Micro Services Group 2
+  </footer>
+
+  <div id="modalRoot"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

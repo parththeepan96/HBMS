@@ -1,0 +1,56 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/users/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/users/{everything}",
+      "DownstreamScheme": "{{USER_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{USER_HOST}}", "Port": {{USER_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/hotels/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/hotels/{everything}",
+      "DownstreamScheme": "{{HOTEL_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{HOTEL_HOST}}", "Port": {{HOTEL_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/hotels",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/api/hotels",
+      "DownstreamScheme": "{{HOTEL_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{HOTEL_HOST}}", "Port": {{HOTEL_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/bookings/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/bookings/{everything}",
+      "DownstreamScheme": "{{BOOKING_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{BOOKING_HOST}}", "Port": {{BOOKING_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/bookings",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/api/bookings",
+      "DownstreamScheme": "{{BOOKING_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{BOOKING_HOST}}", "Port": {{BOOKING_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/payments/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/payments/{everything}",
+      "DownstreamScheme": "{{PAYMENT_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{PAYMENT_HOST}}", "Port": {{PAYMENT_PORT}} } ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/notifications/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/notifications/{everything}",
+      "DownstreamScheme": "{{NOTIFICATION_SCHEME}}",
+      "DownstreamHostAndPorts": [ { "Host": "{{NOTIFICATION_HOST}}", "Port": {{NOTIFICATION_PORT}} } ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "{{GATEWAY_BASE_URL}}"
+  }
+}

@@ -1,0 +1,35 @@
+# ---------- Secrets 
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/application-local.properties
+.env
+*.env
+
+ApiGateway/ocelot.generated.json
+
+# ---------- .NET ----------
+bin/
+obj/
+*.user
+*.suo
+
+# ---------- Java / Maven ----------
+target/
+*.class
+.mvn/
+
+# ---------- Node 
+node_modules/
+npm-debug.log*
+
+# ---------- IDE / OS ----------
+.vs/
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ---------- Logs ----------
+*.log
+logs/
