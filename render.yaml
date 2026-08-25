@@ -105,5 +105,4 @@ services:
     name: hbms-frontend
     runtime: static
     staticPublishPath: ./Frontend
-    plan: free
     buildCommand: ""

@@ -2,6 +2,12 @@
 
 Group 2
 
+Contributions
+Thedsanamoorththy Parththeepan(25199602)=> Frontend + Booking Service
+Ramesh Babu (25192991) => PPT + Hotel Service
+Azan Arsal Saleem(26106778) => Payment Service + API Gateway
+Rahul Pritam Singh Bisht(25196588) => User Service + Notification Service
+
 ```
 HBMS/
 ├── ApiGateway/          C# (.NET 8) + Ocelot   — single entry point, routing

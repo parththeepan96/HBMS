@@ -3,6 +3,20 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Render's containers have a very low inotify instance limit, and the default
+// JSON config providers open a FileSystemWatcher (reloadOnChange: true) that
+// exhausts it and crashes the app on boot with "configured user limit (128)
+// on the number of inotify instances has been reached". Rebuild the config
+// sources with reloadOnChange disabled so no watcher is ever created. (The
+// generated ocelot.json added below already used reloadOnChange: false.)
+builder.Configuration.Sources.Clear();
+builder.Configuration
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false)
+    .AddEnvironmentVariables()
+    .AddCommandLine(args);
+
 // ocelot.json is a template with {{TOKEN}} placeholders for each downstream service's
 // scheme/host/port, so the same file works unmodified for local dev (defaults below match
 // each service's local port) and for a real deployment (set the env vars and each service
@@ -46,7 +60,16 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 
-app.MapGet("/health", () => Results.Ok(new { status = "API Gateway is running" }));
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path == "/health")
+    {
+        await context.Response.WriteAsJsonAsync(new { status = "API Gateway is running" });
+        return;
+    }
+    await next();
+});
 
 await app.UseOcelot();
 
