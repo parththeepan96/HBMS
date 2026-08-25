@@ -43,13 +43,13 @@ services:
       - key: MONGODB_URI_BOOKING
         sync: false
       - key: SERVICES_USER_BASE_URL
-        value: https://hbms-user-service.onrender.com
+        value: https://hbms-user-service-lgq2.onrender.com
       - key: SERVICES_HOTEL_BASE_URL
-        value: https://hbms-hotel-service.onrender.com
+        value: https://hbms-hotel-service-lgq2.onrender.com
       - key: SERVICES_PAYMENT_BASE_URL
-        value: https://hbms-payment-service.onrender.com
+        value: https://hbms-payment-service-lgq2.onrender.com
       - key: SERVICES_NOTIFICATION_BASE_URL
-        value: https://hbms-notification-service.onrender.com
+        value: https://hbms-notification-service-lgq2.onrender.com
 
   - type: web
     name: hbms-payment-service
@@ -71,35 +71,35 @@ services:
       - key: USER_SERVICE_SCHEME
         value: https
       - key: USER_SERVICE_HOST
-        value: hbms-user-service.onrender.com
+        value: hbms-user-service-lgq2.onrender.com
       - key: USER_SERVICE_PORT
         value: "443"
       - key: HOTEL_SERVICE_SCHEME
         value: https
       - key: HOTEL_SERVICE_HOST
-        value: hbms-hotel-service.onrender.com
+        value: hbms-hotel-service-lgq2.onrender.com
       - key: HOTEL_SERVICE_PORT
         value: "443"
       - key: BOOKING_SERVICE_SCHEME
         value: https
       - key: BOOKING_SERVICE_HOST
-        value: hbms-booking-service.onrender.com
+        value: hbms-booking-service-lgq2.onrender.com
       - key: BOOKING_SERVICE_PORT
         value: "443"
       - key: PAYMENT_SERVICE_SCHEME
         value: https
       - key: PAYMENT_SERVICE_HOST
-        value: hbms-payment-service.onrender.com
+        value: hbms-payment-service-lgq2.onrender.com
       - key: PAYMENT_SERVICE_PORT
         value: "443"
       - key: NOTIFICATION_SERVICE_SCHEME
         value: https
       - key: NOTIFICATION_SERVICE_HOST
-        value: hbms-notification-service.onrender.com
+        value: hbms-notification-service-lgq2.onrender.com
       - key: NOTIFICATION_SERVICE_PORT
         value: "443"
       - key: GATEWAY_BASE_URL
-        value: https://hbms-api-gateway.onrender.com
+        value: https://hbms-api-gateway-lgq2.onrender.com
 
   - type: web
     name: hbms-frontend
